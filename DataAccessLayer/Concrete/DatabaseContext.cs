@@ -12,7 +12,7 @@ namespace DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=DESKTOP-E6EU0UD;database=StudyCaseDb;integrated security=true");
+            optionsBuilder.UseSqlServer("server=SERVERISMI;database=StudyCaseDb;integrated security=true");
         }
         public DbSet<Study> Studies { get; set; }
     }
