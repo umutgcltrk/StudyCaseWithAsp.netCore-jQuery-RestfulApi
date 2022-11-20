@@ -1,0 +1,106 @@
+﻿@model List<Study>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-right pr-2 my-2">
+        <a asp-action="AddStudent" asp-controller="Study" class="btn btn-primary btn-sm"> Ekle </a>
+    </div>
+    
+<div class="row">
+    <div id="table" class="col-md-6">
+        <h3 class="h3">Öğrenci Not Listesi</h3>
+        <table class='table table-bordered table-sm'>
+            
+            <tr>
+                <th>İsmi</th>
+                <th>Soyismi</th>
+                <th>Vize</th>
+                <th>Final</th>
+            </tr>
+            @foreach  (var item in Model)
+             {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Surname </td>
+                <td>@item.Midterm</td>
+                <td>@item.Final </td>
+                <td>
+                    <a  asp-action="StudyEdit" asp-controller="Study" asp-route-id="@item.StudyId" class="btn btn-warning btn-sm">Edit</a>
+                </td>
+                <td>
+                    <a onclick="return confirm("Silmek istediğinize emin misiniz ?")" asp-action="StudyDelete" asp-controller="Study" asp-route-id="@item.StudyId" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            }
+           </table>
+    </div>
+
+    <div id="addUser" class="col-md-6">
+        @*Kullanıcı ekle*@
+        
+                <h3 class="h3">Öğrenci Ekleme Ekranı</h3>
+                <input type="text" class="form-control" id="txtStudyName" placeholder="Öğrenci Adı" />
+                <br />
+                <input type="text" class="form-control" id="txtStudySurname" placeholder="Öğrenci Soyadı" />
+                <br />
+                <input type="text" class="form-control" id="txtStudyMidterm" placeholder="Vize" />
+                <br />
+                <input type="text" class="form-control" id="txtStudyFinal" placeholder="Final" />
+                <button type="button" class="btn btn-outline-success" id="btnAdd"> Ekle </button>
+        
+    </div>
+</div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    //$(document).ready(function(){
+      //    $.ajax({
+      //        url:"http://localhost:16831/api/Studies/GetStudies", //istek yeri
+      //        contentType:'application/json; charset=utf-8',
+      //        type:'Get',
+      //        dataType:'json',
+      //        success:function(data){
+
+      //            let table ="<table class='table table-bordered table-sm'> <tr> <th>Öğrenci ID</th> <th>İsmi</th> <th>Soyismi</th> <th>Vize</th> <th>Final</th>";
+
+      //            $.each(data,(index,value)=>{
+      //                //console.log(value.Id,value.Name);
+      //                table +=`<tr> <td> ${value.studyId} </td> <td> ${value.name} </td> <td> ${value.surname} </td> <td> ${value.midterm} </td> <td> ${value.final} </td></tr>`
+      //            });
+
+      //            table += "</table>";
+      //            $("#table").html(table);
+      //        }
+      //    })
+
+      //});
+     
+      
+   $("#btnAdd").click(function(){
+    let studies = {
+    Name : $("#txtStudyName").val(),
+    Surname: $("#txtStudySurname").val(),
+    Midterm: $("#txtStudyMidterm").val(),
+    Final : $("#txtStudyFinal").val()
+    };
+
+    $.ajax({
+    type:'POST',
+    url:"/Study/AddStudent/",
+    datatype:'json',
+    data:studies,
+    success:function(func){
+    let result = func;
+    alert("Öğrenci kayıt edildi !")
+    }
+
+    });
+  });
+</script>
+
+

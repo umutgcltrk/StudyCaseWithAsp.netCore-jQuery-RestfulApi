@@ -1,0 +1,19 @@
+﻿@model Study
+@{
+    ViewData["Title"] = "AddStudent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>AddStudent</h1>
+<div class="container mt-2">
+    <form asp-action="AddStudent" asp-controller="Study" method="post">
+        <input type="text" asp-for="Name" class="form-control" placeholder="Öğrenci Adı" /> <br />
+        <input type="text" asp-for="Surname" class="form-control" placeholder="Öğrenci Soyadı" /> <br />
+        <input type="text" asp-for="Midterm" class="form-control" placeholder="Vize Notu" /> <br />
+        <input type="text" asp-for="Final" class="form-control" placeholder="Final Notu" /> <br />
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Ekle</button>
+        </div>
+    </form>
+</div>
